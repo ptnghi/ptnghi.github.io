@@ -2,7 +2,7 @@ title:             Nghi's blog
 email:             ptnghi@apcs.vn
 description:       A blog to write about stuff I read
 author:            ptnghi
-baseurl:           "/blog"
+baseurl:           ""
 url:               "http://ptnghi.github.io"
 
 # Social Profiles
