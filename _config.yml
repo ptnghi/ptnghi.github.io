@@ -6,9 +6,9 @@ baseurl:           "/"
 url:               "http://ptnghi.github.io"
 
 # Social Profiles
-twitter_username:  SBootstrap
-github_username:   BlackrockDigital
-facebook_username: StartBootstrap
+twitter_username:  
+github_username:   ptnghi
+facebook_username: ptnghiapcs
 
 # Build settings
 markdown:          kramdown
