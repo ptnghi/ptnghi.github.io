@@ -32,7 +32,8 @@ Complete code for both server and client can be found at [this git hub repositor
 
 So as any sane and clueless person would do, I googled "TCP multithread server" and found some codes. Here's the part I found [here](https://dzone.com/articles/parallel-tcpip-socket-server-with-multi-threading)
 
-```C
+```c
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<sys/socket.h>
