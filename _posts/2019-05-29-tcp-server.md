@@ -120,9 +120,9 @@ Pushing ahead, I implement part of the logic of the given task to this framework
 
 Quite confident with what I accomplished, I wrote the client's code and a start script to start things in parallel. (The start script can be found [here](https://github.com/ptnghi/simpe-tcp-multithread-server/blob/master/startclient.sh)) This is where the server code start to show some **real problems.**
 
-The first and really minor problem is that the integer `i` in the loop never got increased as new threads are created, thus overwritng the previous one. When the number of client actually reaches 50 and we need to wait for the previous ones to finish, it will only wait for one thread but not the rest. 
+The first and really minor problem is that the integer `i` in the loop never got increased as new threads are created, thus overwriting the previous one. When the number of client actually reaches 50 and we need to wait for the previous ones to finish, it will only wait for one thread but not the rest. 
 
-The second one and most serious problem is sending the reference to `newSocket` to the new thread. On paper, the new value would be passed to the new thread and convert to a socket file descriptor for each new client. However experiment showed otherwise. (It is a shamed that I don't have the time to revert my code to that state and show you the actual result.) Different threads have the same socket descriptor passed to them, reuslting in one or a few client not receiving any data and hangs forever.
+The second one and most serious problem is sending the reference to `newSocket` to the new thread. On paper, the new value would be passed to the new thread and convert to a socket file descriptor for each new client. However experiment showed otherwise. (It is a shamed that I don't have the time to revert my code to that state and show you the actual result.) Different threads have the same socket descriptor passed to them, resulting in one or a few client not receiving any data and hangs forever.
 
 This is caused by a context switch happen right before the thread copy the arguments to a local variable. Imagine a sequence like this
 
@@ -132,21 +132,14 @@ So I decided to change this part a little bit. Instead of passing the `newSocket
 
 ## Synchronization 
 
-I just toook a course on Operating System prior to this intership where the content focuses heavily on solving synchronization problem. Therefore all of the synchronization stuff is not much of a problem for me during this task. However there are a few tips I can give:
+I just took a course on Operating System prior to this intership where the content focuses heavily on solving synchronization problem. Therefore all of the synchronization stuff is not much of a problem for me during this task. However there are a few tips I can give:
 
 - Protect shared resource, always, race condition is a mess.
-- Remeber to unlock after lock a mutex, especially when you break out of a loop.
+- Remember to unlock after lock a mutex, especially when you break out of a loop.
 - Try to minimize the critical section
 
 
 ## Problem with TCP packages
-
-I just toook a course on Operating System prior to this intership where the content focuses heavily on solving synchronization problem. Therefore all of the synchronization stuff is not much of a problem for me during this task. However there are a few tips I can give:
-
-- Protect shared resource, always, race condition is a mess.
-- Remeber to unlock after lock a mutex, especially when you break out of a loop.
-- Try to minimize the critical section
-
 TCP is quite a a reliable protocol with all the acknowledgement procedure and stuff however it still have some gotcha that a complete beginner like me have no idea about.
 
 The first one is maximum package size. TCP cannot send a package that is too large. When we try to send the result file (which is about 2-3KB) the end of the file is dropped. To fix this, we have to split the content into a few 1024 bytes package. To accomodate this logic change, both the server and client's code have to incorporate partial send and read.
