@@ -26,7 +26,7 @@ During our intership, we (me and other interns) were given a task related to net
 
 Prior to this internship, I have not taken any courses on network programming nor multi thread programming so this task is quite a challenge. Before doing this task, we have been given some materials on the subject but reading them alone withouth context or concrete example is not really helpful so this this task is the first time I have my hand on all this task.
 
-Complete code for both server and client can be found at [this git hub repository](https://github.com/ptnghi/simpe-tcp-multithread-server/blob/master/startclient.sh)
+Complete code for both server and client can be found at [this git hub repository](https://github.com/ptnghi/simpe-tcp-multithread-server)
 
 ## Intial search and problems
 
